@@ -111,6 +111,9 @@ public class Start {
                 isAdd=true;
                 int i=j;
                 while (isAdd){
+                    if(i==-1){
+                        System.out.println("结果溢出");
+                    }
                     if (list1.get(i)+list2.get(i)==2){
                         result.set(i,0);
                         i--;
