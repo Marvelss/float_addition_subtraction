@@ -46,18 +46,25 @@ public class Start {
         if(isPos.equals("1,")){
             getMin(list);
         }
-        String str1 = listToString(list);
-        String str2 =isPos+str1;
-        return str2;
+//        String str2 =isPos+str1;
+        return listToString(list);
     }
-    //判断正负符号并转换
-        public static String isPos(int a){
-            if(a>0){
+    //判断两数正负符号
+        public static String isPos(int a,int b){
+            if(a+b>0){
                 return "0,";
             }else {
                 return "1,";
             }
         }
+        //判断一个数是否正数
+    public static String isPos(int a){
+        if(a>0){
+            return "0,";
+        }else {
+            return "1,";
+        }
+    }
         //负数的原码转化补码
     public static void getMin(ArrayList<Integer> list){
         //负数的原码取反
@@ -80,13 +87,50 @@ public class Start {
                     return;
                 }
             }
-
     }
 
+//    两数相加
+    public static void add(String num1, String num2,ArrayList<Integer> result){
+//        ArrayList<Integer> result = new ArrayList<>();
+        ArrayList<Integer> list1 = new ArrayList<>();
+        ArrayList<Integer> list2 = new ArrayList<>();
+        for(int i=0;i<num1.length();i++){
+            result.add(0);
+        }
+        for(int i=0;i<num1.length();i++){
+            list1.add(Integer.parseInt(num1.substring(i,i+1)));
+        }
+        for(int i=0;i<num2.length();i++){
+            list2.add(Integer.parseInt(num2.substring(i,i+1)));
+        }
+        System.out.println(result);
+        System.out.println(list1);
+        System.out.println(list2);
+
+//        处理+1进位
+        int j=result.size()-1;
+        while (j>0){
+            if(list1.get(j)+list2.get(j)==2){
+                result.set(j,0);
+                j--;
+            }
+            else if(list1.get(j)+list2.get(j)==1){
+                result.set(j, list1.get(j)+list2.get(j));
+               j--;
+            }
+            else {
+                result.set(j,result.get(j)+1);
+                return;
+            }
+        }
+    }
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         int num1 = scanner.nextInt();//输入一个十进制数字
         int num2 = scanner.nextInt();//输入一个十进制数字
+        ArrayList<Integer> add_result = new ArrayList<>();//存放两数相加结果
+        String result_isPos =isPos(num1,num2);//两数相加结果是否为正数
         String num3 = isPos(num1);//判断正负
         String num4 = isPos(num2);
 
@@ -98,5 +142,7 @@ public class Start {
         ArrayList<Integer> list4 = getFullNum(list2,comparedLength);
         System.out.println(getFullNum_next(list3,num3));
         System.out.println(getFullNum_next(list4,num4));
+        add(getFullNum_next(list3,num3),getFullNum_next(list4,num4),add_result);
+        System.out.println(add_result);
     }
 }
