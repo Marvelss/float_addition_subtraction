@@ -3,6 +3,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Start {
+    public static boolean isSpill=false;//判断结果溢出
     //list转字符串
     public static String listToString(ArrayList<Integer> list) {
         StringBuffer stringBuffer = new StringBuffer();
@@ -111,26 +112,31 @@ public class Start {
                 isAdd=true;
                 int i=j;
                 while (isAdd){
-                    if(i==-1){
-                        System.out.println("结果溢出");
-                    }
-                    if (list1.get(i)+list2.get(i)==2){
-                        result.set(i,0);
-                        i--;
-                    }else {
-                        if(list1.get(i)+list2.get(i)+1==2)
-                        {
-                          result.set(i,0);
-                          i--;
-                        }
-                       else{
-                           result.set(i,list1.get(i)+list2.get(i)+1);
-                            isAdd=false;
+                    try {
+                        if (list1.get(i)+list2.get(i)==2){
+                            result.set(i,0);
+                            i--;
+                        }else {
+                            if(list1.get(i)+list2.get(i)+1==2)
+                            {
+                                result.set(i,0);
+                                i--;
+                            }
+                            else{
+                                result.set(i,list1.get(i)+list2.get(i)+1);
+                                isAdd=false;
 
 //                            System.out.println(i);
+                            }
                         }
                     }
+                    catch (Exception e){
+//                        System.out.println("溢出");
+                        isSpill=true;
+                        return;
+                    }
                 }
+
                 j=i-1;
                 continue;
             }
@@ -147,23 +153,31 @@ public class Start {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        int num1 = scanner.nextInt();//输入一个十进制数字
-        int num2 = scanner.nextInt();//输入一个十进制数字
-        ArrayList<Integer> add_result = new ArrayList<>();//存放两数相加结果
-        String result_isPos =isPos(num1,num2);//两数相加结果是否为正数
-        String num3 = isPos(num1);//判断正负
-        String num4 = isPos(num2);
+        while (scanner.hasNext()){
+            int num1 = scanner.nextInt();//输入一个十进制数字
+            int num2 = scanner.nextInt();//输入一个十进制数字
+            ArrayList<Integer> add_result = new ArrayList<>();//存放两数相加结果
+            String result_isPos =isPos(num1,num2);//两数相加结果是否为正数
+            String num3 = isPos(num1);//判断正负
+            String num4 = isPos(num2);
 
-        ArrayList<Integer> list1 = inputNum(Math.abs(num1));
-        ArrayList<Integer> list2 = inputNum(Math.abs(num2));
-        int comparedLength =comparedLength(list1.size(),list2.size());
+            ArrayList<Integer> list1 = inputNum(Math.abs(num1));
+            ArrayList<Integer> list2 = inputNum(Math.abs(num2));
+            int comparedLength =comparedLength(list1.size(),list2.size());
 
-        ArrayList<Integer> list3 = getFullNum(list1,comparedLength);
-        ArrayList<Integer> list4 = getFullNum(list2,comparedLength);
-        System.out.println(getFullNum_next(list3,num3));
-        System.out.println(getFullNum_next(list4,num4));
-        add(getFullNum_next(list3,num3),getFullNum_next(list4,num4),add_result);
-        String add_result_reveal=result_isPos+listToString(add_result);
-        System.out.println(add_result_reveal);//两数相加结果
+            ArrayList<Integer> list3 = getFullNum(list1,comparedLength);
+            ArrayList<Integer> list4 = getFullNum(list2,comparedLength);
+            System.out.println(getFullNum_next(list3,num3));
+            System.out.println(getFullNum_next(list4,num4));
+            add(getFullNum_next(list3,num3),getFullNum_next(list4,num4),add_result);
+            String add_result_reveal=result_isPos+listToString(add_result);
+            //溢出判断
+            if(!isSpill){
+                System.out.println(add_result_reveal);//两数相加结果
+            }else {
+                System.out.println("结果溢出");
+                isSpill=false;
+            }
+        }
     }
 }
