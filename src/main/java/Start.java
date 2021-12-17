@@ -52,9 +52,9 @@ public class Start {
     //判断两数正负符号
         public static String isPos(int a,int b){
             if(a+b>0){
-                return "0,";
+                return "0 ";
             }else {
-                return "1,";
+                return "1 ";
             }
         }
         //判断一个数是否正数
@@ -161,6 +161,6 @@ public class Start {
         System.out.println(getFullNum_next(list4,num4));
         add(getFullNum_next(list3,num3),getFullNum_next(list4,num4),add_result);
         String add_result_reveal=result_isPos+listToString(add_result);
-        System.out.println(add_result);//两数相加结果
+        System.out.println(add_result_reveal);//两数相加结果
     }
 }
