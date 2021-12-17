@@ -59,8 +59,8 @@ public class Start {
             }
         }
         //负数的原码转化补码
-    public static ArrayList<Integer> getMin(ArrayList<Integer> list){
-        ArrayList<Integer> list1 = new ArrayList<>();
+    public static void getMin(ArrayList<Integer> list){
+        //负数的原码取反
         for(int i=0;i<list.size();i++){
             if(list.get(i)==0){
                 list.set(i,1);
@@ -68,7 +68,20 @@ public class Start {
                 list.set(i,0);
             }
         }
-        return list1;
+        //处理+1进位
+        int j=list.size()-1;
+        while (j>0){
+                if(list.get(j)+1==2){
+                    System.out.println(list.get(list.size()-1)+1);
+                    list.set(j,1);
+                    j--;
+                }
+                else {
+                    list.set(j,list.get(j)+1);
+                    return;
+                }
+            }
+
     }
 
     public static void main(String[] args) {
