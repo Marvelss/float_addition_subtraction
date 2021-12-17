@@ -30,7 +30,7 @@ public class Start {
     //二进制补满最大位
     public static ArrayList<Integer> getFullNum(ArrayList<Integer> list,int comparedLength){
         ArrayList<Integer> list1 = new ArrayList<>();
-        int[] arr=new int[comparedLength];//用0填入补满位
+        int[] arr=new int[8];//0填入补满位,默认8位，comparedLength比较位
         for(int i=0;i<list.size();i++){
                 arr[i]=list.get(i);
         }
@@ -40,12 +40,17 @@ public class Start {
         Collections.reverse(list1);//集合逆序
         return list1;
     }
-    //正负符号转换
+    //正负符号拼接原有二进制数
     public static String getFullNum_next(ArrayList<Integer> list,String isPos) {
+//        判断正不变；负就转换
+        if(isPos.equals("0,")){
+            getMin(list);
+        }
         String str1 = listToString(list);
         String str2 =isPos+str1;
         return str2;
     }
+    //判断正负符号并转换
         public static String isPos(int a){
             if(a>0){
                 return "1,";
@@ -53,6 +58,18 @@ public class Start {
                 return "0,";
             }
         }
+        //负数的原码转化补码
+    public static ArrayList<Integer> getMin(ArrayList<Integer> list){
+        ArrayList<Integer> list1 = new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            if(list.get(i)==0){
+                list.set(i,1);
+            }else {
+                list.set(i,0);
+            }
+        }
+        return list1;
+    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
