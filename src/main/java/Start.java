@@ -43,7 +43,7 @@ public class Start {
     //正负符号拼接原有二进制数
     public static String getFullNum_next(ArrayList<Integer> list,String isPos) {
 //        判断正不变；负就转换
-        if(isPos.equals("0,")){
+        if(isPos.equals("1,")){
             getMin(list);
         }
         String str1 = listToString(list);
@@ -53,9 +53,9 @@ public class Start {
     //判断正负符号并转换
         public static String isPos(int a){
             if(a>0){
-                return "1,";
-            }else {
                 return "0,";
+            }else {
+                return "1,";
             }
         }
         //负数的原码转化补码
@@ -72,8 +72,7 @@ public class Start {
         int j=list.size()-1;
         while (j>0){
                 if(list.get(j)+1==2){
-                    System.out.println(list.get(list.size()-1)+1);
-                    list.set(j,1);
+                    list.set(j,0);
                     j--;
                 }
                 else {
