@@ -105,10 +105,31 @@ public class Start {
 
 //        处理+1进位
         int j=result.size()-1;
+        boolean isAdd=true;
         while (j>=0){
-            if(list1.get(j)+list2.get(j)==2){
-                result.set(j,0);
-                j--;
+            if(list1.get(j)+list2.get(j)>=2){
+                isAdd=true;
+                int i=j;
+                while (isAdd){
+                    if (list1.get(i)+list2.get(i)==2){
+                        result.set(i,0);
+                        i--;
+                    }else {
+                        if(list1.get(i)+list2.get(i)+1==2)
+                        {
+                          result.set(i,0);
+                          i--;
+                        }
+                       else{
+                           result.set(i,list1.get(i)+list2.get(i)+1);
+                            isAdd=false;
+
+//                            System.out.println(i);
+                        }
+                    }
+                }
+                j=i-1;
+                continue;
             }
             else if(list1.get(j)+list2.get(j)==1){
                 result.set(j, 1);
