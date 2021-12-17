@@ -77,7 +77,7 @@ public class Start {
         }
         //处理+1进位
         int j=list.size()-1;
-        while (j>0){
+        while (j>=0){
                 if(list.get(j)+1==2){
                     list.set(j,0);
                     j--;
@@ -91,7 +91,6 @@ public class Start {
 
 //    两数相加
     public static void add(String num1, String num2,ArrayList<Integer> result){
-//        ArrayList<Integer> result = new ArrayList<>();
         ArrayList<Integer> list1 = new ArrayList<>();
         ArrayList<Integer> list2 = new ArrayList<>();
         for(int i=0;i<num1.length();i++){
@@ -103,24 +102,21 @@ public class Start {
         for(int i=0;i<num2.length();i++){
             list2.add(Integer.parseInt(num2.substring(i,i+1)));
         }
-        System.out.println(result);
-        System.out.println(list1);
-        System.out.println(list2);
 
 //        处理+1进位
         int j=result.size()-1;
-        while (j>0){
+        while (j>=0){
             if(list1.get(j)+list2.get(j)==2){
                 result.set(j,0);
                 j--;
             }
             else if(list1.get(j)+list2.get(j)==1){
-                result.set(j, list1.get(j)+list2.get(j));
+                result.set(j, 1);
                j--;
             }
             else {
-                result.set(j,result.get(j)+1);
-                return;
+                result.set(j,0);
+                j--;
             }
         }
     }
@@ -143,6 +139,7 @@ public class Start {
         System.out.println(getFullNum_next(list3,num3));
         System.out.println(getFullNum_next(list4,num4));
         add(getFullNum_next(list3,num3),getFullNum_next(list4,num4),add_result);
-        System.out.println(add_result);
+        String add_result_reveal=result_isPos+listToString(add_result);
+        System.out.println(add_result);//两数相加结果
     }
 }
