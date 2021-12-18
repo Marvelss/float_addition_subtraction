@@ -124,27 +124,30 @@ public class Start {
             if(list1.get(j)+list2.get(j)>=2){
                 isAdd=true;
                 int i=j;
+                int first=1;
                 while (isAdd){
+                    int flag=1;
                     try {
-                        if (list1.get(i)+list2.get(i)>=2){
-                            result.set(i,0);
+                        if (list1.get(i)+list2.get(i)+flag==3) {
+                            if(first==1){
+                                result.set(i, 0);
+                                i--;
+                                first++;
+                            }else {
+                                result.set(i, 1);
+                                i--;
+                                first++;
+                            }
+                        }
+                        else if (list1.get(i)+list2.get(i)+flag==2){
+                            result.set(i, 0);
                             i--;
-                            if(list1.get(i)+list2.get(i)==2){
-                                result.set(i,1);
-                                i--;
-                            }
-                        }else {
-                            if(list1.get(i)+list2.get(i)+1==2)
-                            {
-                                result.set(i,0);
-                                i--;
-                            }
-                            else{
-                                result.set(i,list1.get(i)+list2.get(i)+1);
-                                isAdd=false;
-
+                            first++;
+                        }
+                        else if(list1.get(i)+list2.get(i)+flag==1){
+                            result.set(i,1);
+                            isAdd=false;
 //                            System.out.println(i);
-                            }
                         }
                     }
                     catch (Exception e){
@@ -153,7 +156,6 @@ public class Start {
                         return;
                     }
                 }
-
                 j=i-1;
                 continue;
             }
