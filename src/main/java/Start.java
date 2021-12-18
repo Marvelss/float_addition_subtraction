@@ -16,12 +16,17 @@ public class Start {
     //十进制转化二进制
     public static ArrayList<Integer> inputNum(int num1){
         ArrayList<Integer> list = new ArrayList<Integer>();//存放二进制数
-        int b;//得到一位二进制
-        while (num1>0){
-            b=num1%2;
-            num1=num1/2;
-            list.add(b);
+        int t = 0;  //用来记录位数
+        int bin = 0; //用来记录最后的二进制数
+        int r = 0;  //用来存储余数
+        while(num1 != 0){
+            r = num1 % 2;
+            num1 = num1 / 2;
+            bin += r * Math.pow(10,t);
+            t++;
+            list.add(r);
         }
+        Collections.reverse(list);
         return list;
     }
     //比较两个二进制数的个数，得到最大位数
@@ -47,6 +52,7 @@ public class Start {
 //        判断正不变；负就转换
         if(isPos.equals("1,")){
             getMin(list);
+            Collections.reverse(list);
         }
 //        String str2 =isPos+str1;
 //        System.out.println(list);
@@ -72,13 +78,17 @@ public class Start {
         //负数的原码转化补码
     public static void getMin(ArrayList<Integer> list){
         //负数的原码取反
+        Collections.reverse(list);
         for(int i=0;i<list.size();i++){
+//            System.out.println(list.get(i));
             if(list.get(i)==0){
                 list.set(i,1);
             }else {
                 list.set(i,0);
             }
+
         }
+//        System.out.println(list);
         //处理+1进位
         int j=list.size()-1;
         while (j>=0){
