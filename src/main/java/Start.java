@@ -3,7 +3,6 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Start {
-    public static boolean isSpill=false;//判断结果溢出
     //list转字符串
     public static String listToString(ArrayList<Integer> list) {
         StringBuffer stringBuffer = new StringBuffer();
@@ -31,7 +30,7 @@ public class Start {
     //二进制补满最大位
     public static ArrayList<Integer> getFullNum(ArrayList<Integer> list,int comparedLength){
         ArrayList<Integer> list1 = new ArrayList<>();
-        int[] arr=new int[comparedLength];//0填入补满位,默认8位，comparedLength比较位
+        int[] arr=new int[8];//0填入补满位,默认8位，comparedLength比较位
         for(int i=0;i<list.size();i++){
                 arr[i]=list.get(i);
         }
@@ -43,14 +42,12 @@ public class Start {
     }
     //正负符号拼接原有二进制数
     public static String getFullNum_next(ArrayList<Integer> list,String isPos) {
-
 //        判断正不变；负就转换
         if(isPos.equals("1,")){
             getMin(list);
         }
-        ArrayList<Integer> list1 = getFull8Num(list);
 //        String str2 =isPos+str1;
-        return listToString(list1);
+        return listToString(list);
     }
     //判断两数正负符号
         public static String isPos(int a,int b){
@@ -114,31 +111,26 @@ public class Start {
                 isAdd=true;
                 int i=j;
                 while (isAdd){
-                    try {
-                        if (list1.get(i)+list2.get(i)==2){
-                            result.set(i,0);
-                            i--;
-                        }else {
-                            if(list1.get(i)+list2.get(i)+1==2)
-                            {
-                                result.set(i,0);
-                                i--;
-                            }
-                            else{
-                                result.set(i,list1.get(i)+list2.get(i)+1);
-                                isAdd=false;
+                    if(i==-1){
+                        System.out.println("结果溢出");
+                    }
+                    if (list1.get(i)+list2.get(i)==2){
+                        result.set(i,0);
+                        i--;
+                    }else {
+                        if(list1.get(i)+list2.get(i)+1==2)
+                        {
+                          result.set(i,0);
+                          i--;
+                        }
+                       else{
+                           result.set(i,list1.get(i)+list2.get(i)+1);
+                            isAdd=false;
 
 //                            System.out.println(i);
-                            }
                         }
                     }
-                    catch (Exception e){
-//                        System.out.println("溢出");
-                        isSpill=true;
-                        return;
-                    }
                 }
-
                 j=i-1;
                 continue;
             }
@@ -152,49 +144,26 @@ public class Start {
             }
         }
     }
-    //二进制补满最大位
-    public static ArrayList<Integer> getFull8Num(ArrayList<Integer> list){
-        ArrayList<Integer> list1 = new ArrayList<>();
-        int[] arr=new int[8];//0填入补满位,默认8位，comparedLength比较位
-        for(int i=0;i<list.size();i++){
-            arr[i]=list.get(i);
-        }
-        for (int i=0;i<arr.length;i++){
-            list1.add(arr[i]);
-        }
-        Collections.reverse(list1);//集合逆序
-        return list1;
-    }
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNext()){
-            int num1 = scanner.nextInt();//输入一个十进制数字
-            int num2 = scanner.nextInt();//输入一个十进制数字
-            ArrayList<Integer> add_result = new ArrayList<>();//存放两数相加结果
-            String result_isPos =isPos(num1,num2);//两数相加结果是否为正数
-            String num3 = isPos(num1);//判断正负
-            String num4 = isPos(num2);
+        int num1 = scanner.nextInt();//输入一个十进制数字
+        int num2 = scanner.nextInt();//输入一个十进制数字
+        ArrayList<Integer> add_result = new ArrayList<>();//存放两数相加结果
+        String result_isPos =isPos(num1,num2);//两数相加结果是否为正数
+        String num3 = isPos(num1);//判断正负
+        String num4 = isPos(num2);
 
-            ArrayList<Integer> list1 = inputNum(Math.abs(num1));
-            ArrayList<Integer> list2 = inputNum(Math.abs(num2));
-            int comparedLength =comparedLength(list1.size(),list2.size());
+        ArrayList<Integer> list1 = inputNum(Math.abs(num1));
+        ArrayList<Integer> list2 = inputNum(Math.abs(num2));
+        int comparedLength =comparedLength(list1.size(),list2.size());
 
-            ArrayList<Integer> list3 = getFullNum(list1,comparedLength);
-            ArrayList<Integer> list4 = getFullNum(list2,comparedLength);
-            String num5 = getFullNum_next(list3,num3);
-            String num6 = getFullNum_next(list4,num4);
-            System.out.println(num5);
-            System.out.println(num6);
-            add(num5,num6,add_result);
-            String add_result_reveal=result_isPos+listToString(add_result);
-            //溢出判断
-            if(!isSpill){
-                System.out.println(add_result_reveal);//两数相加结果
-            }else {
-                System.out.println("结果溢出");
-                isSpill=false;
-            }
-        }
+        ArrayList<Integer> list3 = getFullNum(list1,comparedLength);
+        ArrayList<Integer> list4 = getFullNum(list2,comparedLength);
+        System.out.println(getFullNum_next(list3,num3));
+        System.out.println(getFullNum_next(list4,num4));
+        add(getFullNum_next(list3,num3),getFullNum_next(list4,num4),add_result);
+        String add_result_reveal=result_isPos+listToString(add_result);
+        System.out.println(add_result_reveal);//两数相加结果
     }
 }
