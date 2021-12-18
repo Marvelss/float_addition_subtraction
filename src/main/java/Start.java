@@ -126,9 +126,13 @@ public class Start {
                 int i=j;
                 while (isAdd){
                     try {
-                        if (list1.get(i)+list2.get(i)==2){
+                        if (list1.get(i)+list2.get(i)>=2){
                             result.set(i,0);
                             i--;
+                            if(list1.get(i)+list2.get(i)==2){
+                                result.set(i,1);
+                                i--;
+                            }
                         }else {
                             if(list1.get(i)+list2.get(i)+1==2)
                             {
