@@ -43,12 +43,14 @@ public class Start {
     }
     //正负符号拼接原有二进制数
     public static String getFullNum_next(ArrayList<Integer> list,String isPos) {
+
 //        判断正不变；负就转换
         if(isPos.equals("1,")){
             getMin(list);
         }
+        ArrayList<Integer> list1 = getFull8Num(list);
 //        String str2 =isPos+str1;
-        return listToString(list);
+        return listToString(list1);
     }
     //判断两数正负符号
         public static String isPos(int a,int b){
@@ -160,6 +162,7 @@ public class Start {
         for (int i=0;i<arr.length;i++){
             list1.add(arr[i]);
         }
+        Collections.reverse(list1);//集合逆序
         return list1;
     }
     public static void main(String[] args) {
