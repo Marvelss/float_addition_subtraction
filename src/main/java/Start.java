@@ -172,7 +172,7 @@ public class Start {
     //二进制补满最大位
     public static ArrayList<Integer> getFull8Num(ArrayList<Integer> list){
         ArrayList<Integer> list1 = new ArrayList<>();
-        int[] arr=new int[8];//0填入补满位,默认8位，comparedLength比较位
+        int[] arr=new int[7];//0填入补满位,默认8位，comparedLength比较位
         for(int i=0;i<list.size();i++){
             arr[i]=list.get(i);
         }
@@ -195,6 +195,8 @@ public class Start {
 
             ArrayList<Integer> list1 = inputNum(Math.abs(num1));
             ArrayList<Integer> list2 = inputNum(Math.abs(num2));
+            System.out.println(list1);
+            System.out.println(list2);
             int comparedLength =comparedLength(list1.size(),list2.size());
 
             ArrayList<Integer> list3 = getFullNum(list1,comparedLength);
